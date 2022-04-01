@@ -16,6 +16,7 @@ def opening_explorer():
     moves = input('Please enter a valid sequence of chess moves from the starting position, in UCI notation, separated by spaces or commas.\nInput nothing to use the starting position, or just input a space to use a default value: e2e4 e7e5\n')
     if (moves == ' '):
         moves = 'e2e4 e7e5'
+    print('loading...')
     response = requests.get("https://explorer.lichess.ovh/masters?play=" + moves.replace(' ', ','))
     if (response.status_code != 200):
         print("There was something wrong with the API request. Did you enter a correct series of moves in UCI notation?")

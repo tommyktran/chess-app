@@ -13,7 +13,7 @@ def print_menu():
         print (key, '--', menu_options[key] )
 
 def opening_explorer():
-    moves = input('Please enter a valid sequence of chess moves from the starting position, in UCI notation, separated by spaces or commas.\nOr just input a space to use a default value: e2e4 e7e5\n')
+    moves = input('Please enter a valid sequence of chess moves from the starting position, in UCI notation, separated by spaces or commas.\nInput nothing to use the starting position, or just input a space to use a default value: e2e4 e7e5\n')
     if (moves == ' '):
         moves = 'e2e4 e7e5'
     response = requests.get("https://explorer.lichess.ovh/masters?play=" + moves.replace(' ', ','))

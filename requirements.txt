@@ -1,3 +1,2 @@
-requests
-json
+requests==2.27.1
 tabulate==0.8.9

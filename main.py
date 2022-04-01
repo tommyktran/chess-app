@@ -1,28 +1,27 @@
 import requests
-import chess
 import json
 from tabulate import tabulate
 
 menu_options = {
     1: 'Opening Explorer',
-    2: 'Player Opening Tree',
-    3: 'Exit',
+    2: 'Exit',
 }
 
 def print_menu():
-    print('\n\n')
+    print('\n')
     for key in menu_options.keys():
         print (key, '--', menu_options[key] )
 
 def opening_explorer():
-    moves = input('Please enter a valid sequence of chess moves from the starting position, in UCI notation.\nOr a default value: e2e4')
-    response = requests.get("https://explorer.lichess.ovh/masters?play=" + "e2e4")
+    moves = input('Please enter a valid sequence of chess moves from the starting position, in UCI notation, separated by spaces or commas.\nOr just input a space to use a default value: e2e4 e7e5\n')
+    if (moves == ' '):
+        moves = 'e2e4 e7e5'
+    response = requests.get("https://explorer.lichess.ovh/masters?play=" + moves.replace(' ', ','))
     if (response.status_code != 200):
         print("There was something wrong with the API request. Did you enter a correct series of moves in UCI notation?")
         return
     else: 
         responseObj = json.loads(response.content)
-        print(responseObj)
         moveTable = []
         for move in responseObj['moves']:
             totalGames = move['white'] + move['black'] + move['draws']
@@ -35,15 +34,12 @@ def main():
         print_menu()
         option = input('Enter your choice: ') 
         if option == '1':
-            print('Handle option \'Option 1\'')
             opening_explorer()
         elif option == '2':
-            print('Handle option \'Option 2\'')
-        elif option == '3':
             print('Exiting')
             exit()
         else:
-            print('Invalid option. Please enter a number between 1 and 3.')
+            print('Invalid option. Please enter a number between 1 and 2.')
     return
 
 main()

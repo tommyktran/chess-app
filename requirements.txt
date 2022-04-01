@@ -1,0 +1,3 @@
+requests
+json
+tabulate==0.8.9
